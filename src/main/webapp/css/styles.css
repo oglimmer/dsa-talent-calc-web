@@ -1,0 +1,6 @@
+
+/* added for angular-ui-bootstrap */
+.nav, .pagination, .carousel, .panel-title a { 
+	cursor: pointer; 
+}
+
