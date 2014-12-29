@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import de.oglimmer.dsa.TalentRollSuccessCalculator;
+import de.oglimmer.dsa.WinRateCalculator;
 
 @Path("calc")
 public class CalcResource {
@@ -26,7 +26,7 @@ public class CalcResource {
 
 		List<PostOutValue> resultList = new ArrayList<>();
 		for (int taw = -10; taw < 16; taw++) {
-			TalentRollSuccessCalculator trsc = new TalentRollSuccessCalculator(postIn.getValues(), taw, 20);
+			WinRateCalculator trsc = new WinRateCalculator(postIn.getValues(), taw, 20);
 			resultList.add(new PostOutValue(taw, trsc.getWinRate()));
 			// System.out.println("P(win) for TaW=" + taw + " == " + trsc.getWinRate() + "%");
 		}
