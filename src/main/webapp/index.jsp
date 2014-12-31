@@ -1,3 +1,5 @@
+<%@page import="de.oglimmer.dsacalc.services.DsacalcVersion"%>
+<%@page import="de.oglimmer.dsa.DSATalentTestCalcVersion"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="false" %>
 <!DOCTYPE html>
 <html lang="en" ng-app="DSATCApp" class="no-js" xmlns="http://www.w3.org/1999/xhtml" xmlns:ng="http://angularjs.org">
@@ -7,7 +9,8 @@
 	<title>DSA-Talent-Calc</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="webjars/normalize.css/3.0.1/normalize.css" rel="stylesheet" />
+	<link href="webjars/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/html5-boilerplate-main.css" rel="stylesheet" />
 	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
@@ -52,8 +55,9 @@
 	  	
 	</div>
 	  	  	
-		<script src="webjars/angularjs/1.3.0-beta.19/angular.min.js"></script>
-		<script src="webjars/angularjs/1.3.0-beta.19/angular-resource.min.js"></script>
+		<script src="webjars/angularjs/1.3.8/angular.min.js"></script>
+		<script src="webjars/angularjs/1.3.8/angular-resource.min.js"></script>
+		<script src="webjars/modernizr/2.8.3/modernizr.min.js"></script>
 		
 		<script src="js/app.js"/></script>
 		<script src="js/services.js"/></script>
@@ -61,5 +65,8 @@
 		<script src="js/filters.js"/></script>
 		<script src="js/directives.js"/></script>
 
+	<!--
+		Lib: <%=DSATalentTestCalcVersion.INSTANCE.getVersion()%> / Web: <%=DsacalcVersion.INSTANCE.getVersion()%>
+	 -->
 </body>
 </html>

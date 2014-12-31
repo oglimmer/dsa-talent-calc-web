@@ -1,18 +1,16 @@
 package de.oglimmer.dsacalc.services;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
-
-import javax.servlet.ServletContext;
 
 import lombok.Getter;
 
+import com.jcabi.manifests.Manifests;
+
 public enum DsacalcVersion {
 	INSTANCE;
+
+	private final String prefix = "DSA-TalCalc-Web";
 
 	@Getter
 	private String version;
@@ -22,22 +20,18 @@ public enum DsacalcVersion {
 	private String dsaCalcVersion;
 	@Getter
 	private String creationDate;
-	@Getter
-	private boolean runsOnDev;
 
-	public void init(ServletContext context) {
-		try (InputStream is = new FileInputStream(context.getRealPath("/META-INF/MANIFEST.MF"))) {
-			Manifest mf = new Manifest(is);
-			Attributes attr = mf.getMainAttributes();
-			commit = attr.getValue("Git-Commit");
-			dsaCalcVersion = attr.getValue("DSA-Talent-Calc-Version");
-			long time = Long.parseLong(attr.getValue("Creation-Date"));
+	private DsacalcVersion() {
+
+		try {
+			commit = Manifests.read(prefix + "-Git-Commit");
+			long time = Long.parseLong(Manifests.read(prefix + "-Creation-Date"));
 			creationDate = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(new Date(time));
-		} catch (Exception e) {
+			dsaCalcVersion = Manifests.read(prefix + "-Version");
+		} catch (IllegalArgumentException e) {
 			commit = "?";
 			creationDate = "?";
 			dsaCalcVersion = "?";
-			runsOnDev = true;
 		}
 
 		version = "V" + dsaCalcVersion + " [Commit#" + commit + "] build " + creationDate;
