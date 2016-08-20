@@ -65,9 +65,10 @@
 					<archiveClasses>true</archiveClasses>
 					<archive>
 						<manifestEntries>
-							<DSA-TalCalc-Web-Git-Commit>${buildNumber}</DSA-TalCalc-Web-Git-Commit>
-							<DSA-TalCalc-Web-Creation-Date>${timestamp}</DSA-TalCalc-Web-Creation-Date>
-							<DSA-TalCalc-Web-Version>${project.version}</DSA-TalCalc-Web-Version>
+							<git-commit>${buildNumber}</git-commit>
+							<git-url>${project.scm.url}</git-url>
+							<creation-date>${timestamp}</creation-date>
+							<project-version>${project.version}</project-version>
 						</manifestEntries>
 					</archive>
 				</configuration>
@@ -85,17 +86,6 @@
 			<groupId>de.oglimmer</groupId>
 			<artifactId>dsa-test-calc</artifactId>
 			<version>0.1-SNAPSHOT</version>
-		</dependency>
-		<!-- LOG -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.7</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.1.2</version>
 		</dependency>
 		<!-- Servlet/JSP -->
 		<dependency>
