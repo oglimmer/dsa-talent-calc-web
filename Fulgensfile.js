@@ -6,8 +6,14 @@ module.exports = {
     Vagrant: {
       Box: 'ubuntu/xenial64',
       Install: 'maven openjdk-8-jdk-headless docker.io'
-    },
-    JavaVersions: [ "1.8" ]
+    }
+  },
+
+  versions: {
+    tomcat: {
+      JavaLocal: "1.8",
+      KnownMax: "Java 1.8"
+    }
   },
 
   software: {
