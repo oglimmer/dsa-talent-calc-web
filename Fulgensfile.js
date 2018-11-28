@@ -11,6 +11,7 @@ module.exports = {
 
   versions: {
     tomcat: {
+      Docker: "9-jre8-slim",
       JavaLocal: "1.8",
       KnownMax: "Java 1.8"
     }
@@ -34,7 +35,11 @@ module.exports = {
 
     tomcat: {
       Source: "tomcat",
-      Deploy: "dsatalentcalcweb"
+      DockerMemory: "100M",
+      Deploy: "dsatalentcalcweb",
+      EnvVars: [
+        "JAVA_OPTS=\"-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap\""
+      ]
     }
   }
 
