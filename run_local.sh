@@ -141,7 +141,7 @@ dsatalentcalcweb {Source:\"mvn\", Default-Type:\"local\"}
   -t dsatalentcalcweb:docker:[TAG] #docker based build, default tag: latest, uses image https://hub.docker.com/_/maven
 tomcat {Source:\"tomcat\", Default-Type:\"local\", Version-Info: \"Max Java 1.8\"}
   -t tomcat:local #On macOS: Java version overwritten to 1.8
-  -t tomcat:docker:[TAG] #start docker, default tag 9-jre8-slim, uses image https://hub.docker.com/_/tomcat
+  -t tomcat:docker:[TAG] #start docker, default tag latest, uses image https://hub.docker.com/_/tomcat9-openjdk8-openj9
   -t tomcat:download:[7|8|9] #start fresh downloaded tomcat, default version 9 and respect -j
   -t tomcat:local:TOMCAT_HOME_PATH #reuse tomcat installation from TOMCAT_HOME_PATH, does not start/stop this tomcat
 "
@@ -223,7 +223,7 @@ fi
 
 if [ "$SKIP_HASH_CHECK" != "YES" ]; then
 	if which md5 1>/dev/null; then
-		declare SELF_HASH_MD5="108d22d39873c5042cb791547b87a020"
+		declare SELF_HASH_MD5="afd15417769dd1e85e75ed62a97d9882"
 		declare SOURCE_FILES=(Fulgensfile Fulgensfile.js)
 		for SOURCE_FILE in ${SOURCE_FILES[@]}; do
 			declare SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
@@ -534,7 +534,7 @@ if [ "$START_TOMCAT" = "YES" ]; then
 
 	if [ "$TYPE_SOURCE_TOMCAT" == "docker" ]; then
 		if [ -z "$TYPE_SOURCE_TOMCAT_VERSION" ]; then
-			TYPE_SOURCE_TOMCAT_VERSION=9-jre8-slim
+			TYPE_SOURCE_TOMCAT_VERSION=latest
 		fi
 
 	fi
@@ -628,12 +628,12 @@ if [ "$START_TOMCAT" = "YES" ]; then
 		if [ ! -f ".tomcatPid" ]; then
 			startDockerNetwork
 
-			verbosePrint "docker run --rm -d ${dockerAddLibRefs[@]} -p 8080:8080 -m 100M --net=dsa-talent-calcnet --name=tomcat $ADD_HOST_INTERNAL  -e JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" -v "$(pwd)/localrun/webapps":/usr/local/tomcat/webapps tomcat:$TYPE_SOURCE_TOMCAT_VERSION"
+			verbosePrint "docker run --rm -d ${dockerAddLibRefs[@]} -p 8080:8080 -m 70M --net=dsa-talent-calcnet --name=tomcat $ADD_HOST_INTERNAL  -e JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" -v "$(pwd)/localrun/webapps":/usr/local/tomcat/webapps tomcat9-openjdk8-openj9:$TYPE_SOURCE_TOMCAT_VERSION"
 			dockerContainerIDtomcat=$(docker run --rm -d ${dockerAddLibRefs[@]} -p 8080:8080 \
-				-m 100M \
+				-m 70M \
 				--net=dsa-talent-calcnet --name=tomcat $ADD_HOST_INTERNAL \
 				-e JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" \
-				-v "$(pwd)/localrun/webapps":/usr/local/tomcat/webapps tomcat:$TYPE_SOURCE_TOMCAT_VERSION)
+				-v "$(pwd)/localrun/webapps":/usr/local/tomcat/webapps tomcat9-openjdk8-openj9:$TYPE_SOURCE_TOMCAT_VERSION)
 			echo "$dockerContainerIDtomcat" >.tomcatPid
 		else
 			dockerContainerIDtomcat=$(<.tomcatPid)

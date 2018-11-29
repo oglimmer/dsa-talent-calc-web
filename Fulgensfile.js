@@ -11,7 +11,7 @@ module.exports = {
 
   versions: {
     tomcat: {
-      Docker: "9-jre8-slim",
+      Docker: "tomcat9-openjdk8-openj9", // tomcat:9-jre8-slim
       JavaLocal: "1.8",
       KnownMax: "Java 1.8"
     }
@@ -35,7 +35,8 @@ module.exports = {
 
     tomcat: {
       Source: "tomcat",
-      DockerMemory: "100M",
+      DockerImage: "oglimmer/adoptopenjdk-tomcat",
+      DockerMemory: "70M",
       Deploy: "dsatalentcalcweb",
       EnvVars: [
         "JAVA_OPTS=\"-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap\""
