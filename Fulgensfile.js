@@ -39,7 +39,7 @@ module.exports = {
       DockerMemory: "70M",
       Deploy: "dsatalentcalcweb",
       EnvVars: [
-        "JAVA_OPTS=\"-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap\""
+        { Name: "JAVA_OPTS", Value: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap" }
       ]
     }
   }
